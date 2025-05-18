@@ -1,7 +1,7 @@
 /*get travel view */
-const index = (req, res) => {
+const travel = (req, res) => {
     
-    res.render('travel', { title: "travlr Getaways"});
+    res.render('travel', { title: 'Travlr Getaways'});
 };
 
 module.exports = {

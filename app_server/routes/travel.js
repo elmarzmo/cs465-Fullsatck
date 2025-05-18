@@ -4,7 +4,7 @@ const controller = require('../controllers/travel');
 
 
 /* GET travel page. */
-router.get('/', ctrlMain.travel);
+router.get('/', controller.travel);
 
 
 module.exports = router;

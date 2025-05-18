@@ -7,7 +7,7 @@ var handlebars = require('hbs');
 
 var indexRouter = require('./app_server/routes/index');
 var usersRouter = require('./app_server/routes/users');
-var travelRouter = require('./app_server/routes/users');
+var travelRouter = require('./app_server/routes/travel');
 
 var app = express();
 
