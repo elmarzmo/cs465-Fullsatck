@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from "@angula
 import { Router } from "@angular/router";
 import { TripData } from '../services/trip-data';
 
+
 @Component({
   selector: 'app-add-trip',
   standalone: true,
@@ -18,7 +19,8 @@ export class AddTrip  implements OnInit {
 constructor(
   private formBuilder: FormBuilder,
   private router: Router,
-  private trip: TripData
+  private trip: TripData,
+
 ) { }
 
 ngOnInit() {
