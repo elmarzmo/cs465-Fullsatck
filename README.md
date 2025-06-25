@@ -22,6 +22,6 @@ Adding authentication and security layers, such as Passport.js with JWT for admi
 
 
 Reflection
-This couse helped me understanding of full stack development and how to build secure, functional web applications from the ground up. I’ve improved my skills in Express, MongoDB, JavaScript, and API design.
+This course helped me understanding of full stack development and how to build secure, functional web applications from the ground up. I’ve improved my skills in Express, MongoDB, JavaScript, and API design.
 
 I also learned how to structure my code better and using Git and GitHub. These are important skills for working in a real-world development environment. 
