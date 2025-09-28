@@ -78,5 +78,9 @@ router
     .post(authenticateJWT, tripsController.tripsAddFavorite)
     .delete(authenticateJWT, tripsController.tripsRemoveFavorite);
 
+router
+    .route("/trips/filter")
+    .get(tripsController.tripsFilter);
+
     
 module.exports = router;

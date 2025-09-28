@@ -59,6 +59,30 @@ private getStuff(): void {
       }
     })
 }
+  // Sort trips by field
+ public sortTripsBy(field: keyof Trip, order: 'asc' | 'desc') {
+  if (!this.trips) return;
+
+  this.trips.sort((a, b) => {
+    let aValue = a[field] as any;
+    let bValue = b[field] as any;
+
+    if (typeof aValue === 'string') aValue = aValue.toLowerCase();
+    if (typeof bValue === 'string') bValue = bValue.toLowerCase();
+
+    if (aValue < bValue) return order === 'asc' ? -1 : 1;
+    if (aValue > bValue) return order === 'asc' ? 1 : -1;
+    return 0;
+  });
+}
+  // Filter trips by destination
+  public filterTripsByDestination(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    this.tripData.getFilteredTrips(undefined, undefined, value).subscribe((data) => {
+      this.trips = data;
+    });
+  }
+
 
 
   ngOnInit(): void {

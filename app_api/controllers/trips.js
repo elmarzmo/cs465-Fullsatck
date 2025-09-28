@@ -161,11 +161,41 @@ const tripsRemoveFavorite = async (req, res) => {
 };
 
 
+// Filter and sort trips
+const tripsFilter = async (req, res) => {
+    try {
+        let query = {};
+        let sort = {};
+
+        // Example: /trips/filter?destination=Hawaii&sort=perPerson&order=asc
+        if (req.query.destination) {
+            query.resort = { $regex: req.query.destination, $options: "i" };
+        }
+
+        if (req.query.sort) {
+            const order = req.query.order === "desc" ? -1 : 1;
+            sort[req.query.sort] = order;
+        }
+
+        const trips = await Model.find(query).sort(sort).exec();
+
+        if (!trips || trips.length === 0) {
+            return res.status(404).json({ message: "No trips found" });
+        }
+
+        res.status(200).json(trips);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+};
+
+
 module.exports = {
     tripsList,
     tripsFindByCode,
     tripsAddTrip,
     tripsUpdateTrip,
     tripsAddFavorite,
-    tripsRemoveFavorite
+    tripsRemoveFavorite,
+    tripsFilter //  export new function
 };

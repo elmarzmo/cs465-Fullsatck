@@ -5,6 +5,7 @@ import { Trip } from '../models/trip';
 import { User } from '../models/user';
 import { AuthResponse } from '../models/auth-response';
 import { BROWSER_STORAGE } from '../storage';
+import { HttpParams } from '@angular/common/http';
 
 
 
@@ -87,5 +88,15 @@ removeFavorite(tripCode: string): Observable<any> {
     }
   );
 }
+
+getFilteredTrips(sort?: string, order?: string, destination?: string): Observable<Trip[]> {
+  let params = new HttpParams();
+  if (sort) params = params.set('sort', sort);
+  if (order) params = params.set('order', order);
+  if (destination) params = params.set('destination', destination);
+
+  return this.http.get<Trip[]>(`${this.baseUrl}/trips/filter`, { params });
+}
+
 
 }

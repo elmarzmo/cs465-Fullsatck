@@ -2,6 +2,15 @@
 <div *ngIf="isLoggedIn()">
     <button (click) ="addTrip()" class="btn btn-info">Add Trip</button>
 </div>
+<div>
+  <input type="text" placeholder="Search by destination" 
+         (input)="filterTripsByDestination($event)" />
+
+  <button (click)="sortTripsBy('perPerson', 'asc')">Sort by Price ↑</button>
+  <button (click)="sortTripsBy('perPerson', 'desc')">Sort by Price ↓</button>
+  <button (click)="sortTripsBy('length', 'asc')">Sort by Date ↑</button>
+  <button (click)="sortTripsBy('length', 'desc')">Sort by Date ↓</button>
+</div>
 
 <div class="row">
   <div *ngFor="let trip of trips" class="col-md-4">
