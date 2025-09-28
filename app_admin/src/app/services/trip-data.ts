@@ -64,4 +64,28 @@ export class TripData {
   formData);
   }
 
+
+  // Add trip to favorites
+addFavorite(tripCode: string): Observable<any> {
+  const token = this.storage.getItem('travlr-token'); // get JWT from storage
+  return this.http.post(
+    `${this.url}/${tripCode}/favorite`,
+    {},
+    {
+      headers: { Authorization: `Bearer ${token}` }
+    }
+  );
+}
+
+// Remove trip from favorites
+removeFavorite(tripCode: string): Observable<any> {
+  const token = this.storage.getItem('travlr-token'); // get JWT from storage
+  return this.http.delete(
+    `${this.url}/${tripCode}/favorite`,
+    {
+      headers: { Authorization: `Bearer ${token}` }
+    }
+  );
+}
+
 }

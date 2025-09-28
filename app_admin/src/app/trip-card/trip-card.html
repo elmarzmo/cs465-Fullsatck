@@ -14,5 +14,13 @@
         <div *ngIf="isLoggedIn()">
             <button (click)="editTrip(trip)" class ="btn btn-info">Edit Trip</button>
         </div>
+
+         <div *ngIf="isLoggedIn()" class="mt-2">
+      <button (click)="toggleFavorite()" 
+              class="btn" 
+              [ngClass]="isFavorite() ? 'btn-danger' : 'btn-success'">
+        {{ isFavorite() ? '💔 Remove from Favorites' : '❤️ Add to Favorites' }}
+      </button>
+    </div>
     </div>
 </div>
