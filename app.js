@@ -10,6 +10,10 @@ var usersRouter = require('./app_server/routes/users');
 var travelRouter = require('./app_server/routes/travel');
 var apiRouter = require('./app_api/routes/index');
 
+// Wire in our authentication module
+var passport = require('passport');
+require('./app_api/config/passport');
+
 // Bring in the database
 require('./app_api/models/db');
 
@@ -28,11 +32,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(passport.initialize());
+
+
+// Catch unauthorized error and create 401
+app.use((err, req, res, next) => {
+  if(err.name === 'UnauthorizedError') {
+    res
+      .status(401)
+      .json({"message": err.name + ": " + err.message});
+  }
+});
+
 
 // Enable CORS
 app.use('/api', (req, res, next) => {
   res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-type, Accept');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-type, Accept, authorization');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   next();
 
@@ -60,3 +76,7 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+
+// Bring the .env module
+require('dotenv').config();

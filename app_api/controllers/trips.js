@@ -123,9 +123,49 @@ return res
 // console.log(q);
 };
 
+
+// New features for CS-499
+
+
+// Add a trip to favorites
+const tripsAddFavorite = async (req, res) => {
+    try {
+        const trip = await Model.findOne({ code: req.params.tripCode });
+        if (!trip) return res.status(404).json({ message: "Trip not found" });
+
+        if (!trip.favorites.includes(req.auth._id)) {
+            trip.favorites.push(req.auth._id);
+            await trip.save();
+        }
+
+        res.status(200).json({ message: "Trip added to favorites", trip });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+};
+// Remove a trip from favorites
+const tripsRemoveFavorite = async (req, res) => {
+    try {
+        const trip = await Model.findOne({ code: req.params.tripCode });
+        if (!trip) return res.status(404).json({ message: "Trip not found" });
+
+        trip.favorites = trip.favorites.filter(
+            id => id.toString() !== req.auth._id.toString()
+        );
+        await trip.save();
+
+        res.status(200).json({ message: "Trip removed from favorites", trip });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+};
+
+
 module.exports = {
     tripsList,
     tripsFindByCode,
     tripsAddTrip,
-    tripsUpdateTrip
+    tripsUpdateTrip,
+    tripsAddFavorite,
+    tripsRemoveFavorite
 };
